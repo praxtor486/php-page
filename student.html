@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html lang="en">
+<head>
+    <title>Student Test Scores</title>
+    <style type="text/css">
+        table
+        {
+            border: 2px solid black;
+            border-collapse: collapse;
+            width: 50%;;
+        }
+        th, td
+        {
+           border: 1px solid black;
+           font-family: verdana;
+           text-align:left;
+           padding: 2px;
+        }
+        th
+        {
+            background-color: blue;
+            font-size: .8em;
+            color: white;
+        }
+        td 
+        {
+            font-size: .7em;
+        }
+        .regular
+        {
+            background-color: rgb(255,255,255);   
+            color: rgb(0,0,150)
+        }
+        .below50
+        {
+            background-color: rgb(255,0,0);
+            color: rgb(255,255,255)
+        }
+        .above80
+        {
+            background-color: rgb(0,255,0);
+            color: rgb(0,0,150)
+        }
+        caption
+        {
+            font-family: arial;
+            font-size: 1.3em;
+            caption-side: top;
+        }
+    </style>
+ </head>
+<body>
+    
+    <table id="A"><tr><th>Student Name: A</th></tr><tr><th onclick="tableSort(this,0)" style="cursor:pointer"> Class Name </th><th onclick="tableSort(this,1)" style="cursor:pointer"> Test Score </th><th onclick="tableSort(this,2)" style="cursor:pointer"> Test Date </th></tr><tr class=below50><td>Chemistry</td><td>35.0</td><td>2013-01-01</td></tr><tr class=regular><td>Biology</td><td>63.0</td><td>2013-01-01</td></tr><tr class=above80><td>Math</td><td>92.0</td><td>2013-01-01</td></tr><tr class=below50><td>Chemistry</td><td>42.0</td><td>2013-03-03</td></tr><tr class=regular><td>Biology</td><td>56.0</td><td>2013-03-03</td></tr><tr class=above80><td>Math</td><td>88.0</td><td>2013-03-03</td></tr><tr class=below50><td>Chemistry</td><td>37.0</td><td>2013-06-01</td></tr><tr class=below50><td>Biology</td><td>0.0</td><td>2013-06-01</td></tr><tr class=above80><td>Math</td><td>90.0</td><td>2013-06-01</td></tr><tr class=regular><td> Average Test Score: 55.89</td></tr><table id="B"><tr><th>Student Name: B</th></tr><tr><th onclick="tableSort(this,0)" style="cursor:pointer"> Class Name </th><th onclick="tableSort(this,1)" style="cursor:pointer"> Test Score </th><th onclick="tableSort(this,2)" style="cursor:pointer"> Test Date </th></tr><tr class=above80><td>Chemistry</td><td>98.0</td><td>2013-01-01</td></tr><tr class=above80><td>Biology</td><td>82.0</td><td>2013-01-01</td></tr><tr class=above80><td>Math</td><td>99.0</td><td>2013-01-01</td></tr><tr class=above80><td>Chemistry</td><td>97.0</td><td>2013-03-03</td></tr><tr class=above80><td>Biology</td><td>87.0</td><td>2013-03-03</td></tr><tr class=above80><td>Math</td><td>100.0</td><td>2013-03-03</td></tr><tr class=above80><td>Chemistry</td><td>95.0</td><td>2013-06-01</td></tr><tr class=above80><td>Biology</td><td>90.0</td><td>2013-06-01</td></tr><tr class=above80><td>Math</td><td>99.0</td><td>2013-06-01</td></tr><tr class=regular><td> Average Test Score: 94.11</td></tr></table><script type="text/javascript">
+    function tableSort(element,colID) {
+        var tableRef, tableRow, continueLoop, i, firstRow, secondRow, rowSwitch, sortType, swcount = 0;
+        tblID = element.parentNode.parentNode.parentNode.id;
+        tableRef = document.getElementById(tblID);
+        continueLoop = true;
+        sortType = "ASC";
+
+        while (continueLoop) {
+
+          continueLoop = false;
+          tableRow = tableRef.getElementsByTagName("TR");
+
+          for (i = 2; i < (tableRow.length - 3); i++) {
+
+            rowSwitch = false;
+
+            firstRow = tableRow[i].getElementsByTagName("TD")[colID];
+            secondRow = tableRow[i + 1].getElementsByTagName("TD")[colID];
+
+            if (sortType === "ASC") {
+              if (firstRow.innerHTML.toLowerCase() > secondRow.innerHTML.toLowerCase()) {
+                rowSwitch= true;
+                break;
+              }
+            } else if (sortType === "DESC") {
+              if (firstRow.innerHTML.toLowerCase() < secondRow.innerHTML.toLowerCase()) {
+                rowSwitch= true;
+                break;
+              }
+            }
+          }
+          if (rowSwitch) {
+            tableRow[i].parentNode.insertBefore(tableRow[i + 1], tableRow[i]);
+            continueLoop = true;
+
+            swcount ++;
+          } else {
+
+            if (swcount === 0 && sortType === "ASC") {
+              sortType = "DESC";
+              continueLoop = true;
+            }
+          }
+        }
+    }
+        </script>
+</body>
+</html>
+
